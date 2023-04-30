@@ -6,7 +6,7 @@ import ThairMessage from "./ThairMessage";
 const ChatFeed = (props) => {
   const { chats, activeChat, userName, messages } = props;
   const chat = chats && chats[activeChat];
-  console.log("chat : ", chat);
+
   const renderMessage = () => {
     const keys = Object.keys(messages);
     return keys.map((key, index) => {
@@ -26,7 +26,9 @@ const ChatFeed = (props) => {
       );
     });
   };
+
   renderMessage();
+  console.log("chat people: ", chat.people);
   console.log("mmm : ", chat, userName, messages);
 
   if (!chat) return "Loading ...!";
@@ -39,6 +41,7 @@ const ChatFeed = (props) => {
           {chat.people.map((person) => `${person.person.userName}`)}
         </div>
       </div>
+      {renderMessage()}
     </div>
   );
 };
