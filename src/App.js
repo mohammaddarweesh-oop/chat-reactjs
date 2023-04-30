@@ -2,8 +2,10 @@ import React from "react";
 import { ChatEngine } from "react-chat-engine";
 import ChatFeed from "./Components/ChatFeed";
 import "./App.css";
+// import axios from "axios";
 
 const App = () => {
+  // const fetch = await axios.get("https://api.chatengine.io/users/")
   return (
     <ChatEngine
       height="100vh"
