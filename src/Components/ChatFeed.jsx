@@ -1,18 +1,46 @@
 import React from "react";
 import MessageForm from "./MessageForm";
+import MyMessage from "./MyMessage";
+import ThairMessage from "./ThairMessage";
 
 const ChatFeed = (props) => {
   const { chats, activeChat, userName, messages } = props;
   const chat = chats && chats[activeChat];
+  console.log("chat : ", chat);
+  const renderMessage = () => {
+    const keys = Object.keys(messages);
+    return keys.map((key, index) => {
+      const message = messages[key];
+      const lastMessageKey = index === 0 ? null : keys[index - 1];
+      const isMyMessage = userName === message.sender.userName;
 
-  // const renderMessage = () => {
-  //   const keys = Object.keys(messages);
-  //   console.log(keys);
-  // };
-  // renderMessage();
-  console.log(chat, userName, messages);
+      return (
+        <div key={`msg_${index}`} style={{ width: "100%" }}>
+          <div className="message-block">
+            {isMyMessage ? <MyMessage /> : <ThairMessage />}
+          </div>
+          <div className="read-receipts" style={{ marginRight: "20px" }}>
+            read-receipts
+          </div>
+        </div>
+      );
+    });
+  };
+  renderMessage();
+  console.log("mmm : ", chat, userName, messages);
 
-  return <div>ChatFeed</div>;
+  if (!chat) return "Loading ...!";
+
+  return (
+    <div className="chat-feed">
+      <div className="chat-title-container">
+        <div className="chat-title">{chat.title}</div>
+        <div className="chat-subtitle">
+          {chat.people.map((person) => `${person.person.userName}`)}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ChatFeed;
